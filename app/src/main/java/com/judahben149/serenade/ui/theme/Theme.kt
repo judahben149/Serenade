@@ -1,4 +1,4 @@
-package com.judahben149.serenade.presentation.ui.theme
+package com.judahben149.serenade.ui.theme
 
 import android.app.Activity
 import android.os.Build
