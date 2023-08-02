@@ -4,14 +4,3 @@ plugins {
     id("org.jetbrains.kotlin.android").version("1.8.10").apply(false)
     id("com.google.dagger.hilt.android").version("2.46.1").apply(false)
 }
-
-//buildscript {
-//    repositories {
-//        google()
-//        mavenCentral()
-//    }
-//    dependencies {
-//        classpath(libs.gradle)
-//        classpath(kotlin("gradle-plugin", libs.versions.kotlin.get()))
-//    }
-//}
