@@ -67,6 +67,11 @@ dependencies {
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
 
+    implementation(libs.viewmodel)
+    implementation(libs.viewmodel.compose)
+
+    implementation(libs.coil)
+
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
 
