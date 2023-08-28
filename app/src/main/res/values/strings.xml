@@ -5,4 +5,5 @@
     <string name="pause">Pause</string>
     <string name="previous">Previous</string>
     <string name="next">Next</string>
+    <string name="track_poster_image">Track Poster Image</string>
 </resources>
