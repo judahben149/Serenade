@@ -57,6 +57,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
+    // Compose
     implementation(libs.androidx.activity.compose)
     implementation(composeBom)
     implementation(libs.androidx.compose.ui)
@@ -65,13 +66,20 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.navigation.compose)
 
+    // Hilt
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
+    implementation(libs.hilt.navigation.compose)
 
+    // ViewModel
     implementation(libs.viewmodel)
     implementation(libs.viewmodel.compose)
 
+    // Coil
     implementation(libs.coil)
+
+    // Material Icons
+    implementation(libs.compose.material.icons)
 
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
