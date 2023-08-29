@@ -12,6 +12,8 @@ val Pink40 = Color(0xFF7D5260)
 
 // App colors
 val RedCrayola = Color(0xFFE84855)
+val RedCrayolaAlpha20 = Color(0x33E84855)
 val RedCrayolaAlpha40 = Color(0x66E84855)
-val black = Color(0xFF191414)
-val white = Color(0xFFFFFFFF)
+val Black = Color(0xFF191414)
+val White = Color(0xFFFFFFFF)
+val Grey = Color(0xFF919191)
