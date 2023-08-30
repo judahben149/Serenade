@@ -1,6 +1,7 @@
 package com.judahben149.serenade.di.module
 
 import android.content.Context
+import com.judahben149.serenade.utils.MusicContentHelper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,5 +17,11 @@ object AppModule {
     @Singleton
     fun providesAppContext(@ApplicationContext appContext: Context): Context {
         return appContext
+    }
+
+    @Provides
+    @Singleton
+    fun providesMusicContentHelper(context: Context): MusicContentHelper {
+        return MusicContentHelper(context)
     }
 }
