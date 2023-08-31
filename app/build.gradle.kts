@@ -78,6 +78,9 @@ dependencies {
     // Coil
     implementation(libs.coil)
 
+    // Glide
+    implementation(libs.glide)
+
     // Material Icons
     implementation(libs.compose.material.icons)
 
