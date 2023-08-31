@@ -13,11 +13,11 @@ import androidx.compose.ui.unit.dp
 import com.judahben149.serenade.R
 
 @Composable
-fun PlayButton() {
+fun PlayButton(onClick:() -> Unit) {
     Button(
         modifier = Modifier.size(72.dp),
         shape = CircleShape,
-        onClick = {  }
+        onClick = { onClick() }
     ) {
         Icon(
             modifier = Modifier.size(70.dp),
@@ -26,8 +26,28 @@ fun PlayButton() {
     }
 }
 
+@Composable
+fun PauseButton(onClick:() -> Unit) {
+    Button(
+        modifier = Modifier.size(72.dp),
+        shape = CircleShape,
+        onClick = { onClick() }
+    ) {
+        Icon(
+            modifier = Modifier.size(70.dp),
+            painter = painterResource(id = R.drawable.ic_pause),
+            contentDescription = stringResource(R.string.pause))
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun PlayButtonPreview() {
-    PlayButton()
+    PlayButton() {}
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PauseButtonPreview() {
+    PauseButton() {}
 }
