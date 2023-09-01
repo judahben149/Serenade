@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.judahben149.serenade.ui.screens.home.HomeScreen
 import com.judahben149.serenade.ui.screens.trackDetail.TrackDetailScreen
+import com.judahben149.serenade.utils.encodeUri
 
 @Composable
 fun Navigation(navHostController: NavHostController) {
@@ -13,14 +14,23 @@ fun Navigation(navHostController: NavHostController) {
     NavHost(navController = navHostController, startDestination = Screens.HomeScreen.route) {
 
         composable(route = Screens.HomeScreen.route) {
-            HomeScreen(navController = navHostController)
+            HomeScreen(
+                navigateToTrackDetail = { trackContentUri ->
+                navHostController.navigate(Screens.TrackDetailScreen.route.replace(
+                    oldValue = "{trackId}",
+                    newValue = trackContentUri.encodeUri()
+                ))
+            })
         }
         
         composable(route = Screens.TrackDetailScreen.route) {
-            val trackId = it.arguments?.getString("trackId")
+            val trackContentUri = it.arguments?.getString("trackId")
 
-            trackId?.let { id ->
-                TrackDetailScreen(navController = navHostController, trackId = id.toLong())
+            trackContentUri?.let { uri ->
+                TrackDetailScreen(
+                    encodedTrackContentUri = uri,
+                    onNavigate = {  }
+                )
             }
         }
 

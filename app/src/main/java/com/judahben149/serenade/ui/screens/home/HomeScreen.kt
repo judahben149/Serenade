@@ -31,14 +31,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import com.judahben149.serenade.ui.components.ChipComponent
 import com.judahben149.serenade.ui.components.SnackBarComponent
 import com.judahben149.serenade.ui.components.TrackListItemComponent
-import com.judahben149.serenade.ui.navigation.Screens
 
 @Composable
-fun HomeScreen(navController: NavHostController, homeViewModel: HomeViewModel = hiltViewModel()) {
+fun HomeScreen(
+    homeViewModel: HomeViewModel = hiltViewModel(),
+    navigateToTrackDetail:(trackContentUri: String) -> Unit
+) {
+
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
     val state by homeViewModel.state.collectAsState()
@@ -66,11 +68,8 @@ fun HomeScreen(navController: NavHostController, homeViewModel: HomeViewModel = 
                 contentPadding = PaddingValues(horizontal = 12.dp)
             ) {
                 items(state.trackList.size) {
-                    TrackListItemComponent(track = state.trackList[it]) { trackId ->
-                        navController.navigate(Screens.TrackDetailScreen.route.replace(
-                            oldValue = "{trackId}",
-                            newValue = "$trackId"
-                        ))
+                    TrackListItemComponent(track = state.trackList[it]) { trackContentUri ->
+                        navigateToTrackDetail(trackContentUri)
                     }
                 }
             }
@@ -123,5 +122,5 @@ fun TopAppBarComponentPreview() {
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen(navController = NavHostController(LocalContext.current))
+    HomeScreen {}
 }

@@ -20,29 +20,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.judahben149.serenade.domain.models.Track
 import com.judahben149.serenade.ui.theme.LightGrey
 import com.judahben149.serenade.utils.toDurationHHMMSS
 
 @Composable
-fun TrackListItemComponent(track: Track, onClick:(duration: Int) -> Unit) {
-    val painter = rememberAsyncImagePainter(track.thumbnail)
+fun TrackListItemComponent(track: Track, onClick:(trackContentUri: String) -> Unit) {
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .clip(RoundedCornerShape(4.dp))
             .background(color = Color.White)
-            .clickable { onClick(track.duration) }
+            .clickable { onClick(track.contentUri) }
             .padding(vertical = 10.dp)
     ) {
 
@@ -83,12 +83,12 @@ fun TrackListItemComponent(track: Track, onClick:(duration: Int) -> Unit) {
     }
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun TrackImageComponent(track: Track) {
-    val imagePainter = rememberAsyncImagePainter(model = track.thumbnail)
-    val context = LocalContext.current
+    val imagePainter = rememberAsyncImagePainter(model = track.contentUri)
 
-    if (track.albumArt == null) {
+    if (track.albumArt == null) { //this is a check that will never be false - intentionally put here - will resolve later
         Box(
             modifier = Modifier
                 .size(48.dp)
@@ -104,10 +104,9 @@ fun TrackImageComponent(track: Track) {
         }
     }
     else {
-//        val albumArtBitmap = getAlbumBitmap(context, track.contentUri.toString())
 
-        AsyncImage(
-            model = track.albumArt?.asImageBitmap(),
+        GlideImage(
+            model = imagePainter,
             modifier = Modifier.size(48.dp),
             contentDescription = "Track Thumbnail"
         )
