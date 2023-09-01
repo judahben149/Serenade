@@ -84,6 +84,10 @@ dependencies {
     // Material Icons
     implementation(libs.compose.material.icons)
 
+    // Media3 ExoPlayer
+    implementation(libs.media3.exoplayer)
+    implementation(libs.media3.session)
+
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
 
