@@ -41,14 +41,14 @@ class HomeViewModel @Inject constructor(
                 var actualTrackList: ArrayList<Track> = arrayListOf()
 
                 for (track in trackList) {
-                    val albumArt = getAlbumArt(track.contentUri)
+//                    val albumArt = getAlbumArt(track.contentUri)
 
                     val trackDetails = Track(
                         id = track.id,
                         trackName = track.name ?: "Empty name",
                         artistName = track.artist ?: "Empty Artist",
                         duration = track.duration,
-                        albumArt = albumArt
+                        albumArt = null
                     )
 
                     actualTrackList.add(trackDetails)

@@ -1,6 +1,5 @@
 package com.judahben149.serenade.ui.screens.home
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -18,7 +17,6 @@ import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -37,6 +35,7 @@ import androidx.navigation.NavHostController
 import com.judahben149.serenade.ui.components.ChipComponent
 import com.judahben149.serenade.ui.components.SnackBarComponent
 import com.judahben149.serenade.ui.components.TrackListItemComponent
+import com.judahben149.serenade.ui.navigation.Screens
 
 @Composable
 fun HomeScreen(navController: NavHostController, homeViewModel: HomeViewModel = hiltViewModel()) {
@@ -67,8 +66,11 @@ fun HomeScreen(navController: NavHostController, homeViewModel: HomeViewModel = 
                 contentPadding = PaddingValues(horizontal = 12.dp)
             ) {
                 items(state.trackList.size) {
-                    TrackListItemComponent(track = state.trackList[it]) {
-                        Toast.makeText(context, "Duration - $it", Toast.LENGTH_LONG).show()
+                    TrackListItemComponent(track = state.trackList[it]) { trackId ->
+                        navController.navigate(Screens.TrackDetailScreen.route.replace(
+                            oldValue = "{trackId}",
+                            newValue = "$trackId"
+                        ))
                     }
                 }
             }
