@@ -88,6 +88,9 @@ dependencies {
     implementation(libs.media3.exoplayer)
     implementation(libs.media3.session)
 
+    //Timber
+    implementation(libs.timber)
+
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
 
