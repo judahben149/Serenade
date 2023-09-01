@@ -1,5 +1,6 @@
 package com.judahben149.serenade.ui.components
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
@@ -17,10 +18,11 @@ fun PlayButton(onClick:() -> Unit) {
     Button(
         modifier = Modifier.size(72.dp),
         shape = CircleShape,
-        onClick = { onClick() }
+        onClick = { onClick() },
+        contentPadding = PaddingValues(1.dp)
     ) {
         Icon(
-            modifier = Modifier.size(70.dp),
+            modifier = Modifier.size(36.dp),
             painter = painterResource(id = R.drawable.ic_play),
             contentDescription = stringResource(R.string.play))
     }
@@ -31,10 +33,11 @@ fun PauseButton(onClick:() -> Unit) {
     Button(
         modifier = Modifier.size(72.dp),
         shape = CircleShape,
-        onClick = { onClick() }
+        onClick = { onClick() },
+        contentPadding = PaddingValues(1.dp)
     ) {
         Icon(
-            modifier = Modifier.size(70.dp),
+            modifier = Modifier.size(36.dp),
             painter = painterResource(id = R.drawable.ic_pause),
             contentDescription = stringResource(R.string.pause))
     }
@@ -43,11 +46,11 @@ fun PauseButton(onClick:() -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun PlayButtonPreview() {
-    PlayButton() {}
+    PlayButton {}
 }
 
 @Preview(showBackground = true)
 @Composable
 fun PauseButtonPreview() {
-    PauseButton() {}
+    PauseButton {}
 }

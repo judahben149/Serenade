@@ -9,9 +9,9 @@ fun PlayPauseButtonComponent(isPlaying: Boolean, onCLick: () -> Unit) {
 
     Box {
         if (isPlaying) {
-            PauseButton() { onCLick() }
+            PauseButton { onCLick() }
         } else {
-            PlayButton() { onCLick() }
+            PlayButton { onCLick() }
         }
     }
 }
@@ -19,6 +19,6 @@ fun PlayPauseButtonComponent(isPlaying: Boolean, onCLick: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun PlayPauseButtonComponentPreview() {
-    PlayPauseButtonComponent(true, {})
+    PlayPauseButtonComponent(true) {}
 }
 
