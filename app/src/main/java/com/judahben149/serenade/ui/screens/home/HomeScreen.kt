@@ -38,7 +38,7 @@ import com.judahben149.serenade.ui.components.TrackListItemComponent
 @Composable
 fun HomeScreen(
     homeViewModel: HomeViewModel = hiltViewModel(),
-    navigateToTrackDetail:(trackContentUri: String) -> Unit
+    navigateToTrackDetail:(trackId: Long, trackContentUri: String) -> Unit
 ) {
 
     val scope = rememberCoroutineScope()
@@ -68,8 +68,8 @@ fun HomeScreen(
                 contentPadding = PaddingValues(horizontal = 12.dp)
             ) {
                 items(state.trackList.size) {
-                    TrackListItemComponent(track = state.trackList[it]) { trackContentUri ->
-                        navigateToTrackDetail(trackContentUri)
+                    TrackListItemComponent(track = state.trackList[it]) { trackId, trackContentUri ->
+                        navigateToTrackDetail(trackId, trackContentUri)
                     }
                 }
             }
@@ -122,5 +122,6 @@ fun TopAppBarComponentPreview() {
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen {}
+    HomeScreen { _,_ ->
+    }
 }

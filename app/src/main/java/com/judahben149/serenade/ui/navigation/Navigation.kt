@@ -15,21 +15,30 @@ fun Navigation(navHostController: NavHostController) {
 
         composable(route = Screens.HomeScreen.route) {
             HomeScreen(
-                navigateToTrackDetail = { trackContentUri ->
-                navHostController.navigate(Screens.TrackDetailScreen.route.replace(
-                    oldValue = "{trackId}",
-                    newValue = trackContentUri.encodeUri()
-                ))
-            })
+                navigateToTrackDetail = { trackId, trackContentUri ->
+                    navHostController.navigate(
+                        Screens.TrackDetailScreen.route
+                            .replace(
+                                oldValue = "{trackId}",
+                                newValue = trackId.toString()
+                            )
+                            .replace(
+                                oldValue = "{trackContentUri}",
+                                newValue = trackContentUri.encodeUri()
+                            )
+                    )
+                })
         }
-        
+
         composable(route = Screens.TrackDetailScreen.route) {
-            val trackContentUri = it.arguments?.getString("trackId")
+            val trackId = it.arguments?.getString("trackId")
+            val trackContentUri = it.arguments?.getString("trackContentUri")
 
             trackContentUri?.let { uri ->
                 TrackDetailScreen(
+                    trackId = trackId?.toLong() ?: 0L,
                     encodedTrackContentUri = uri,
-                    onNavigate = {  }
+                    onNavigate = { }
                 )
             }
         }
