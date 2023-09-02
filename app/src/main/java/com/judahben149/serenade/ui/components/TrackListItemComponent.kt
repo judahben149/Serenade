@@ -35,14 +35,14 @@ import com.judahben149.serenade.ui.theme.LightGrey
 import com.judahben149.serenade.utils.toDurationHHMMSS
 
 @Composable
-fun TrackListItemComponent(track: Track, onClick:(trackContentUri: String) -> Unit) {
+fun TrackListItemComponent(track: Track, onClick:(trackId: Long, trackContentUri: String) -> Unit) {
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(4.dp))
             .background(color = Color.White)
-            .clickable { onClick(track.contentUri) }
+            .clickable { onClick(track.id, track.contentUri) }
             .padding(vertical = 10.dp)
     ) {
 
@@ -134,5 +134,6 @@ fun TrackListItemComponentPreview() {
             artistName = "Chinedu Ndubueze",
             duration = 707
         )
-    ) {}
+    ) { _, _ ->
+    }
 }
