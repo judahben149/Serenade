@@ -1,5 +1,9 @@
 package com.judahben149.serenade.utils
 
+import java.net.URLDecoder
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
+
 
 fun Int.toDurationHHMMSS(): String {
     val duration = (this/1000).toInt()
@@ -17,4 +21,12 @@ fun Int.toDurationHHMMSS(): String {
     } else {
         "$formattedMinutes:$formattedSeconds"
     }
+}
+
+fun String.encodeUri(): String {
+    return URLEncoder.encode(this, StandardCharsets.UTF_8.toString())
+}
+
+fun String.decodeUri(): String {
+    return URLDecoder.decode(this, StandardCharsets.UTF_8.toString())
 }
