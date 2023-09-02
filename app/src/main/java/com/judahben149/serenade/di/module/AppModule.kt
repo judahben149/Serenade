@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.session.MediaSession
+import com.judahben149.serenade.domain.SerenadePlayer
 import com.judahben149.serenade.utils.MusicContentHelper
 import dagger.Module
 import dagger.Provides
@@ -40,5 +41,11 @@ object AppModule {
     @Singleton
     fun providesMediaSession(context: Context, player: Player): MediaSession {
         return MediaSession.Builder(context, player).build()
+    }
+
+    @Provides
+    @Singleton
+    fun providesSerenadePlayer(player: Player): SerenadePlayer {
+        return SerenadePlayer(player)
     }
 }
