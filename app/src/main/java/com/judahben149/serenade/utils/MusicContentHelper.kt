@@ -118,6 +118,45 @@ class MusicContentHelper @Inject constructor(private val context: Context) {
             }
         }
     }
+
+    fun getTrackDetails(contentUriString: String): TrackContent? {
+        val contentUri = Uri.parse(contentUriString)
+
+        val contentResolver = context.contentResolver
+        var trackContent: TrackContent? = null
+
+        val projection = arrayOf(
+            MediaStore.Audio.Media._ID,
+            MediaStore.Audio.Media.DISPLAY_NAME,
+            MediaStore.Audio.Media.DURATION,
+            MediaStore.Audio.Media.SIZE,
+            MediaStore.Audio.Media.ARTIST
+        )
+
+        contentResolver
+            .query(contentUri, projection, null, null, null)
+            ?.use { cursor ->
+
+                if (cursor.moveToFirst()) {
+                    val id = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID))
+                    val displayName = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DISPLAY_NAME))
+                    val duration = cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION))
+                    val size = cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.SIZE))
+                    val artist = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST))
+
+                    trackContent = TrackContent(
+                        id = id,
+                        name = displayName,
+                        duration = duration,
+                        size = size,
+                        artist = artist,
+                        contentUri = contentUri
+                    )
+                }
+            }
+
+        return trackContent
+    }
 }
 
 
