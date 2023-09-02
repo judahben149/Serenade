@@ -2,8 +2,6 @@ package com.judahben149.serenade.ui.screens.home
 
 import android.graphics.Bitmap
 import android.net.Uri
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.judahben149.serenade.domain.models.Track
@@ -38,7 +36,7 @@ class HomeViewModel @Inject constructor(
             val trackList = musicContentHelper.retrieveAllTracks()
 
             if (trackList.size > 0) {
-                var actualTrackList: ArrayList<Track> = arrayListOf()
+                val actualTrackList: ArrayList<Track> = arrayListOf()
 
                 for (track in trackList) {
 //                    val albumArt = getAlbumArt(track.contentUri)
@@ -48,6 +46,7 @@ class HomeViewModel @Inject constructor(
                         trackName = track.name ?: "Empty name",
                         artistName = track.artist ?: "Empty Artist",
                         duration = track.duration,
+                        contentUri = track.contentUri.toString(),
                         albumArt = null
                     )
 
