@@ -1,5 +1,7 @@
 package com.judahben149.serenade.ui.components
 
+import android.content.ContentUris
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -22,17 +24,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.rememberAsyncImagePainter
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
-import com.bumptech.glide.integration.compose.GlideImage
 import com.judahben149.serenade.domain.models.Track
 import com.judahben149.serenade.ui.theme.LightGrey
+import com.judahben149.serenade.utils.getAlbumArt
 import com.judahben149.serenade.utils.toDurationHHMMSS
+import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
 fun TrackListItemComponent(track: Track, onClick:(trackId: Long, trackContentUri: String) -> Unit) {
@@ -83,34 +85,34 @@ fun TrackListItemComponent(track: Track, onClick:(trackId: Long, trackContentUri
     }
 }
 
-@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun TrackImageComponent(track: Track) {
-    val imagePainter = rememberAsyncImagePainter(model = track.contentUri)
+    val context = LocalContext.current
+    val artworkUri = Uri.parse(track.contentUri)
 
-    if (track.albumArt == null) { //this is a check that will never be false - intentionally put here - will resolve later
-        Box(
-            modifier = Modifier
-                .size(48.dp)
-                .background(color = LightGrey, shape = RoundedCornerShape(5.dp))
-        ) {
-            Icon(
-                imageVector = Icons.Rounded.MusicNote,
-                contentDescription = null,
-                modifier = Modifier
-                    .alpha(0.4F)
-                    .align(Alignment.Center)
-            )
-        }
-    }
-    else {
+    val albumArtworkUri = ContentUris.withAppendedId(artworkUri, track.id)
+
+//        val imagePainter = rememberImagePainter(data = getAlbumArt(context, track.contentUri))
 
         GlideImage(
-            model = imagePainter,
+            imageModel = { getAlbumArt(context, track.contentUri) },
             modifier = Modifier.size(48.dp),
-            contentDescription = "Track Thumbnail"
+            loading = {
+                Box(
+                    modifier = Modifier
+                        .size(48.dp)
+                        .background(color = LightGrey, shape = RoundedCornerShape(5.dp))
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.MusicNote,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .alpha(0.4F)
+                            .align(Alignment.Center)
+                    )
+                }
+            }
         )
-    }
 }
 
 @Preview

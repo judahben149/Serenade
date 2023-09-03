@@ -14,9 +14,11 @@ coil = "2.2.2"
 navigation-compose = "2.6.0-beta01"
 hilt-navigation-compose = "1.1.0-alpha01"
 compose-material-icons = "1.4.3"
-glide = "1.0.0-alpha.2"
 media3-exoplayer = "1.1.1"
 timber = "5.0.1"
+glide = "1.0.0-alpha.2"
+glide-accompanist = "0.4.2"
+landscapist-glide = "2.2.6"
 
 
 [libraries]
@@ -40,10 +42,13 @@ androidx-navigation-compose = { group = "androidx.navigation", name = "navigatio
 coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 
 glide = { group = "com.github.bumptech.glide", name = "compose", version.ref = "glide" }
+glide-accompanist = { group = "dev.chrisbanes.accompanist", name = "accompanist-glide", version.ref = "glide-accompanist" }
 
 hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
+
+landscapist-glide = { group = "com.github.skydoves", name = "landscapist-glide", version.ref = "landscapist-glide" }
 
 media3-exoplayer = { group = "androidx.media3", name = "media3-exoplayer", version.ref = "media3-exoplayer" }
 media3-session = { group = "androidx.media3", name = "media3-session", version.ref = "media3-exoplayer" }

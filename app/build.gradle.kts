@@ -76,10 +76,16 @@ dependencies {
     implementation(libs.viewmodel.compose)
 
     // Coil
-    implementation(libs.coil)
+//    implementation(libs.coil)
 
     // Glide
-    implementation(libs.glide)
+//    implementation(libs.glide)
+
+    // Glide - Accompanist
+//    implementation(libs.glide.accompanist)
+
+    // Landscapist - Glide
+    implementation(libs.landscapist.glide)
 
     // Material Icons
     implementation(libs.compose.material.icons)
