@@ -133,6 +133,9 @@ class MusicContentHelper @Inject constructor(private val context: Context) {
             MediaStore.Audio.Media.ARTIST
         )
 
+        val selection = MediaStore.Audio.Media.IS_MUSIC + "!= 0"
+        val sortOrder = "${MediaStore.Audio.Media.DISPLAY_NAME} ASC"
+
         contentResolver
             .query(contentUri, projection, null, null, null)
             ?.use { cursor ->
