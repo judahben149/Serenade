@@ -73,6 +73,7 @@ dependencies {
 
     // ViewModel
     implementation(libs.viewmodel)
+
     implementation(libs.viewmodel.compose)
 
     // Coil
@@ -83,6 +84,9 @@ dependencies {
 
     // Glide - Accompanist
 //    implementation(libs.glide.accompanist)
+
+    // Gson
+    implementation(libs.gson)
 
     // Landscapist - Glide
     implementation(libs.landscapist.glide)

@@ -19,6 +19,7 @@ timber = "5.0.1"
 glide = "1.0.0-alpha.2"
 glide-accompanist = "0.4.2"
 landscapist-glide = "2.2.6"
+gson = "2.10.1"
 
 
 [libraries]
@@ -43,6 +44,8 @@ coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 
 glide = { group = "com.github.bumptech.glide", name = "compose", version.ref = "glide" }
 glide-accompanist = { group = "dev.chrisbanes.accompanist", name = "accompanist-glide", version.ref = "glide-accompanist" }
+
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 
 hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
