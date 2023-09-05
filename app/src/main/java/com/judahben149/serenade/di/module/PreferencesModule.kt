@@ -22,7 +22,7 @@ object PreferencesModule {
 
     @Provides
     @Singleton
-    fun providesPrefUtils(): PrefUtils {
-        return PrefUtils()
+    fun providesPrefUtils(sharedPreferences: SharedPreferences): PrefUtils {
+        return PrefUtils(sharedPreferences)
     }
 }

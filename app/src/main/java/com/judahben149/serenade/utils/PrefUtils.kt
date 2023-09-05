@@ -2,11 +2,10 @@ package com.judahben149.serenade.utils
 
 import android.content.SharedPreferences
 import javax.inject.Inject
+import javax.inject.Singleton
 
-class PrefUtils @Inject constructor() {
-
-    @Inject
-    lateinit var sharedPreferences: SharedPreferences
+@Singleton
+class PrefUtils @Inject constructor(private val sharedPreferences: SharedPreferences) {
 
     fun saveString(key: String, value: String) = sharedPreferences.edit().putString(key, value).apply()
 
