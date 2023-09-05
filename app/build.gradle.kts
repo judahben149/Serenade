@@ -91,6 +91,9 @@ dependencies {
     // Landscapist - Glide
     implementation(libs.landscapist.glide)
 
+    // Landscapist - Coil
+    implementation(libs.landscapist.coil)
+
     // Material Icons
     implementation(libs.compose.material.icons)
 
