@@ -3,6 +3,7 @@ package com.judahben149.serenade.utils
 import androidx.compose.ui.unit.dp
 
 object Constants {
-    val SERENADE_PREFS = "SERENADE_PREFS"
+    const val SERENADE_PREFS = "SERENADE_PREFS"
+    const val NOW_PLAYING_QUEUE = "NOW_PLAYING_QUEUE"
 }
 val ThumbnailCornerRadius = 6.dp
