@@ -1,6 +1,6 @@
 package com.judahben149.serenade.ui.screens.trackDetail
 
-import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,12 +20,15 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -40,20 +43,26 @@ import com.judahben149.serenade.ui.theme.LightGrey
 import com.judahben149.serenade.utils.decodeUri
 import com.judahben149.serenade.utils.logThis
 import com.judahben149.serenade.utils.toDurationHHMMSS
+import com.skydoves.landscapist.animation.crossfade.CrossfadePlugin
+import com.skydoves.landscapist.coil.CoilImage
+import com.skydoves.landscapist.components.rememberImageComponent
 
 @Composable
 fun TrackDetailScreen(
     trackId: Long,
     encodedTrackContentUri: String,
     viewModel: TrackDetailViewModel = hiltViewModel(),
-    onNavigate:() -> Unit
+    onNavigate: () -> Unit,
 ) {
     val state by viewModel.state.collectAsState()
     val context = LocalContext.current
 
     LaunchedEffect(key1 = encodedTrackContentUri) {
         viewModel.updateTrackContentUri(encodedTrackContentUri.decodeUri())
-        Toast.makeText(context, trackId.toString(), Toast.LENGTH_SHORT).show()
+    }
+
+    SideEffect {
+        state.trackContentUri.logThis("jhh")
     }
 
     Column(
@@ -67,16 +76,45 @@ fun TrackDetailScreen(
 
         Box(
             modifier = Modifier
-                .size(200.dp)
+                .size(280.dp)
                 .background(color = LightGrey, shape = RoundedCornerShape(8.dp))
         ) {
-            Icon(
-                imageVector = Icons.Rounded.MusicNote,
-                contentDescription = null,
+
+            CoilImage(
+                imageModel = { state.track.albumArt },
                 modifier = Modifier
-                    .size(56.dp)
-                    .alpha(0.4F)
-                    .align(Alignment.Center)
+                    .align(Alignment.Center),
+                component = rememberImageComponent { +CrossfadePlugin(300) },
+                success = { _, painter ->
+                    Image(
+                        painter = painter,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clip(RoundedCornerShape(5.dp)),
+                        contentScale = ContentScale.Crop
+                    )
+                },
+                loading = {
+                    Icon(
+                        imageVector = Icons.Rounded.MusicNote,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(56.dp)
+                            .alpha(0.4F)
+                            .align(Alignment.Center)
+                    )
+                },
+                failure = {
+                    Icon(
+                        imageVector = Icons.Rounded.MusicNote,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(56.dp)
+                            .alpha(0.4F)
+                            .align(Alignment.Center)
+                    )
+                }
             )
         }
 
@@ -135,9 +173,8 @@ fun TrackDetailScreen(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            PreviousButton {
 
-            }
+            PreviousButton { viewModel.playPreviousTrack() }
 
             Spacer(modifier = Modifier.width(16.dp))
 
@@ -148,9 +185,7 @@ fun TrackDetailScreen(
 
             Spacer(modifier = Modifier.width(16.dp))
 
-            NextButton {
-
-            }
+            NextButton { viewModel.playNextTrack() }
         }
     }
 }
@@ -159,5 +194,5 @@ fun TrackDetailScreen(
 @Preview(showBackground = true)
 @Composable
 fun TrackDetailScreenPreview() {
-    TrackDetailScreen( 0L, "") {}
+    TrackDetailScreen(0L, "") {}
 }
