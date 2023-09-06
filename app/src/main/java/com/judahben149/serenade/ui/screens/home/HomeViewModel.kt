@@ -5,7 +5,11 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.judahben149.serenade.domain.models.Track
+import com.judahben149.serenade.domain.usecase.GetAlbumArtUseCase
+import com.judahben149.serenade.utils.Constants
 import com.judahben149.serenade.utils.MusicContentHelper
+import com.judahben149.serenade.utils.PrefUtils
+import com.judahben149.serenade.utils.serializeTrackListToJson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,6 +22,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val musicContentHelper: MusicContentHelper,
+    private val getAlbumArtUsecase: GetAlbumArtUseCase,
+    private val prefs: PrefUtils
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(HomeUIState())
@@ -69,8 +75,28 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun saveNowPlayingQueue(currentTrackId: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+
+            val trackList = _state.value.trackList.toMutableList()
+            val currentTrack = trackList.first { it.id == currentTrackId }
+            val currentTrackIndex = trackList.indexOf(currentTrack)
+
+            val nowPlayingList = arrayListOf<Track>()
+
+            for (i in trackList.indices) {
+                if (i > currentTrackIndex) {
+                    nowPlayingList.add(trackList[i])
+                }
+            }
+
+            val serializedList = nowPlayingList.toList().serializeTrackListToJson()
+            prefs.saveString(Constants.NOW_PLAYING_QUEUE, serializedList)
+        }
+    }
+
     private suspend fun getAlbumArt(uri: Uri): Bitmap? {
-        return musicContentHelper.getAlbumArtThumbnail(uri)
+        return getAlbumArtUsecase.getEmbeddedAlbumArt(uri)
     }
 
     fun toggleLoading(isLoading: Boolean) {
