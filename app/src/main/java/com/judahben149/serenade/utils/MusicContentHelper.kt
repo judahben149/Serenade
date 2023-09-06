@@ -5,12 +5,14 @@ import android.content.Context
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Build
 import android.os.ParcelFileDescriptor
 import android.provider.MediaStore
 import android.util.Log
 import android.util.Size
+import androidx.annotation.WorkerThread
 import javax.inject.Inject
 
 class MusicContentHelper @Inject constructor(private val context: Context) {
@@ -100,24 +102,24 @@ class MusicContentHelper @Inject constructor(private val context: Context) {
     }
 
 
-    fun getAlbumArtThumbnail(uri: Uri): Bitmap? {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            context.contentResolver.loadThumbnail(uri, Size(48, 48), null)
-        } else {
-            try {
-                val parcelFileDescriptor: ParcelFileDescriptor? =
-                    context.contentResolver.openFileDescriptor(uri, "r")
-                val fileDescriptor = parcelFileDescriptor?.fileDescriptor
-
-                val image: Bitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor)
-                parcelFileDescriptor?.close()
-                image
-            } catch (e: Exception) {
-                e.printStackTrace()
-                null
-            }
-        }
-    }
+//    fun getAlbumArtThumbnail(uri: Uri): Bitmap? {
+//        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+//            context.contentResolver.loadThumbnail(uri, Size(48, 48), null)
+//        } else {
+//            try {
+//                val parcelFileDescriptor: ParcelFileDescriptor? =
+//                    context.contentResolver.openFileDescriptor(uri, "r")
+//                val fileDescriptor = parcelFileDescriptor?.fileDescriptor
+//
+//                val image: Bitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor)
+//                parcelFileDescriptor?.close()
+//                image
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//                null
+//            }
+//        }
+//    }
 
     fun getTrackDetails(contentUriString: String): TrackContent? {
         val contentUri = Uri.parse(contentUriString)
@@ -133,6 +135,7 @@ class MusicContentHelper @Inject constructor(private val context: Context) {
             MediaStore.Audio.Media.ARTIST
         )
 
+        // Not used - will use later
         val selection = MediaStore.Audio.Media.IS_MUSIC + "!= 0"
         val sortOrder = "${MediaStore.Audio.Media.DISPLAY_NAME} ASC"
 
@@ -160,7 +163,27 @@ class MusicContentHelper @Inject constructor(private val context: Context) {
 
         return trackContent
     }
+
+    @WorkerThread
+    fun getAlbumArt(context: Context, uri: Uri): Bitmap?{
+        val mmr = MediaMetadataRetriever()
+        mmr.setDataSource(context, uri)
+        val bitmap: Bitmap? = try{
+            val data = mmr.embeddedPicture
+            if (data != null){
+                BitmapFactory.decodeByteArray(data, 0, data.size)
+            } else{
+                null
+            }
+        } catch (exp: Exception){
+            null
+        } finally {
+            mmr.release()
+        }
+        return bitmap
+    }
 }
+
 
 
 data class TrackContent(
