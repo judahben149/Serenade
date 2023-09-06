@@ -69,6 +69,7 @@ fun HomeScreen(
             ) {
                 items(state.trackList.size) {
                     TrackListItemComponent(track = state.trackList[it]) { trackId, trackContentUri ->
+                        homeViewModel.saveNowPlayingQueue(trackId)
                         navigateToTrackDetail(trackId, trackContentUri)
                     }
                 }
