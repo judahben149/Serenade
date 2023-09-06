@@ -19,6 +19,7 @@ import androidx.compose.material.icons.rounded.MusicNote
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -30,14 +31,21 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.net.toUri
+import coil.compose.rememberAsyncImagePainter
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.judahben149.serenade.domain.models.Track
 import com.judahben149.serenade.ui.theme.LightGrey
-import com.judahben149.serenade.utils.getAlbumArt
+import com.judahben149.serenade.utils.logThis
 import com.judahben149.serenade.utils.toDurationHHMMSS
-import com.skydoves.landscapist.glide.GlideImage
+import com.judahben149.serenade.utils.toUri2
+import com.skydoves.landscapist.coil.CoilImage
 
 @Composable
-fun TrackListItemComponent(track: Track, onClick:(trackId: Long, trackContentUri: String) -> Unit) {
+fun TrackListItemComponent(
+    track: Track,
+    onClick: (trackId: Long, trackContentUri: String) -> Unit,
+) {
 
     Row(
         modifier = Modifier
@@ -51,15 +59,26 @@ fun TrackListItemComponent(track: Track, onClick:(trackId: Long, trackContentUri
         Spacer(modifier = Modifier.width(16.dp))
         TrackImageComponent(track)
 
-        Column(modifier = Modifier
-            .padding(start = 12.dp)
-            .align(Alignment.CenterVertically)
-            .weight(0.5F, fill = true)
+        Column(
+            modifier = Modifier
+                .padding(start = 12.dp)
+                .align(Alignment.CenterVertically)
+                .weight(0.5F, fill = true)
         ) {
 
-            Text(text = track.trackName, fontSize = 13.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Text(
+                text = track.trackName,
+                fontSize = 13.sp,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
             Spacer(modifier = Modifier.width(8.dp))
-            Text(text = track.artistName, fontSize = 11.sp, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Text(
+                text = track.artistName,
+                fontSize = 11.sp,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
 
         }
 
@@ -85,34 +104,87 @@ fun TrackListItemComponent(track: Track, onClick:(trackId: Long, trackContentUri
     }
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun TrackImageComponent(track: Track) {
     val context = LocalContext.current
     val artworkUri = Uri.parse(track.contentUri)
 
+    val imageModel = rememberAsyncImagePainter(model = track.id.toUri2().toUri())
+
     val albumArtworkUri = ContentUris.withAppendedId(artworkUri, track.id)
 
 //        val imagePainter = rememberImagePainter(data = getAlbumArt(context, track.contentUri))
 
-        GlideImage(
-            imageModel = { getAlbumArt(context, track.contentUri) },
-            modifier = Modifier.size(48.dp),
-            loading = {
-                Box(
+//    CoilImage(
+//        imageModel = { track.id.toUri2() },
+//        modifier = Modifier.size(48.dp),
+//        loading = {
+//            Box(
+//                modifier = Modifier
+//                    .size(48.dp)
+//                    .background(color = LightGrey, shape = RoundedCornerShape(5.dp))
+//            ) {
+//                Icon(
+//                    imageVector = Icons.Rounded.MusicNote,
+//                    contentDescription = null,
+//                    modifier = Modifier
+//                        .alpha(0.4F)
+//                        .align(Alignment.Center)
+//                )
+//            }
+//        }
+//    )
+    
+//    AsyncImage(
+//        model = ImageRequest
+//            .Builder(context)
+//            .data(track.contentUri.toUri())
+//            .crossfade(true)
+//            .build(),
+//        contentDescription = null,
+//        modifier = Modifier.size(48.dp),
+//    )
+
+
+    SideEffect {
+        track.id.toUri2().toUri().logThis("VBB")
+    }
+
+    CoilImage(
+        imageModel = { imageModel },
+        modifier = Modifier.size(48.dp),
+        loading = {
+            Box(
+                modifier = Modifier
+                    .size(48.dp)
+                    .background(color = LightGrey, shape = RoundedCornerShape(5.dp))
+            ) {
+                Icon(
+                    imageVector = Icons.Rounded.MusicNote,
+                    contentDescription = null,
                     modifier = Modifier
-                        .size(48.dp)
-                        .background(color = LightGrey, shape = RoundedCornerShape(5.dp))
-                ) {
-                    Icon(
-                        imageVector = Icons.Rounded.MusicNote,
-                        contentDescription = null,
-                        modifier = Modifier
-                            .alpha(0.4F)
-                            .align(Alignment.Center)
-                    )
-                }
+                        .alpha(0.4F)
+                        .align(Alignment.Center)
+                )
             }
-        )
+        },
+        failure = {
+            Box(
+                modifier = Modifier
+                    .size(48.dp)
+                    .background(color = LightGrey, shape = RoundedCornerShape(5.dp))
+            ) {
+                Icon(
+                    imageVector = Icons.Rounded.MusicNote,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .alpha(0.4F)
+                        .align(Alignment.Center)
+                )
+            }
+        }
+    )
 }
 
 @Preview
