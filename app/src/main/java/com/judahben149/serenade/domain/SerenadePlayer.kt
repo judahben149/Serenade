@@ -75,6 +75,46 @@ class SerenadePlayer @Inject constructor(
         }
     }
 
+    fun prepareQueue(trackList: List<Track>) {
+
+        CoroutineScope(Dispatchers.IO).launch {
+            for (track in trackList) {
+                val trackMetadata = constructMediaMetaDataFromTrack(track)
+                val mediaItem = MediaItem.Builder().apply {
+                    setUri(track.contentUri)
+                    setMediaId(track.id.toString())
+                    setMediaMetadata(trackMetadata)
+                }.build()
+
+                withContext(Dispatchers.Main) {
+                    player.addMediaItem(mediaItem)
+                }
+            }
+
+            withContext(Dispatchers.Main) {
+                player.prepare()
+            }
+        }
+    }
+
+    fun playPreviousTrack() {
+        player.seekToPreviousMediaItem()
+        onTrackChanged()
+    }
+
+    fun playNextTrack() {
+        player.seekToNextMediaItem()
+        onTrackChanged()
+    }
+
+    private fun onTrackChanged() {
+        _playerEvent.tryEmit(
+            PlayerEvent.TrackChanged(
+                player.currentMediaItem?.localConfiguration?.uri.toString()
+            )
+        )
+    }
+
     fun performReleaseActions() {
         if (player.isCommandAvailable(COMMAND_RELEASE)) {
             player.release()
@@ -88,4 +128,5 @@ class SerenadePlayer @Inject constructor(
 
 sealed class PlayerEvent {
     data class CurrentPosition(val position: Int) : PlayerEvent()
+    data class TrackChanged(val currentTrackUri: String) : PlayerEvent()
 }
