@@ -53,6 +53,7 @@ hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-com
 
 landscapist-glide = { group = "com.github.skydoves", name = "landscapist-glide", version.ref = "landscapist-glide" }
 landscapist-coil = { group = "com.github.skydoves", name = "landscapist-coil", version.ref = "coil" }
+landscapist-animation = { group = "com.github.skydoves", name = "landscapist-animation", version.ref = "landscapist-glide" }
 
 media3-exoplayer = { group = "androidx.media3", name = "media3-exoplayer", version.ref = "media3-exoplayer" }
 media3-session = { group = "androidx.media3", name = "media3-session", version.ref = "media3-exoplayer" }

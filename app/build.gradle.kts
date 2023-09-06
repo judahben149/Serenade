@@ -77,13 +77,13 @@ dependencies {
     implementation(libs.viewmodel.compose)
 
     // Coil
-//    implementation(libs.coil)
+    implementation(libs.coil)
 
     // Glide
-//    implementation(libs.glide)
+    implementation(libs.glide)
 
     // Glide - Accompanist
-//    implementation(libs.glide.accompanist)
+    implementation(libs.glide.accompanist)
 
     // Gson
     implementation(libs.gson)
@@ -94,6 +94,9 @@ dependencies {
     // Landscapist - Coil
     implementation(libs.landscapist.coil)
 
+    // Landscapist - Animation
+    implementation(libs.landscapist.animation)
+
     // Material Icons
     implementation(libs.compose.material.icons)
 
@@ -101,7 +104,7 @@ dependencies {
     implementation(libs.media3.exoplayer)
     implementation(libs.media3.session)
 
-    //Timber
+    // Timber
     implementation(libs.timber)
 
     debugImplementation(libs.androidx.compose.ui.test.manifest)
