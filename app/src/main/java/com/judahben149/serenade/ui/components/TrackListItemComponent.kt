@@ -107,12 +107,12 @@ fun TrackListItemComponent(
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun TrackImageComponent(track: Track) {
-    val context = LocalContext.current
-    val artworkUri = Uri.parse(track.contentUri)
-
-    val imageModel = rememberAsyncImagePainter(model = track.id.toUri2().toUri())
-
-    val albumArtworkUri = ContentUris.withAppendedId(artworkUri, track.id)
+//    val context = LocalContext.current
+//    val artworkUri = Uri.parse(track.contentUri)
+//
+//    val imageModel = rememberAsyncImagePainter(model = track.id.toUri2().toUri())
+//
+//    val albumArtworkUri = ContentUris.withAppendedId(artworkUri, track.id)
 
 //        val imagePainter = rememberImagePainter(data = getAlbumArt(context, track.contentUri))
 
@@ -147,12 +147,12 @@ fun TrackImageComponent(track: Track) {
 //    )
 
 
-    SideEffect {
-        track.id.toUri2().toUri().logThis("VBB")
-    }
+//    SideEffect {
+//        track.albumArt?.logThis("VBB")
+//    }
 
     CoilImage(
-        imageModel = { imageModel },
+        imageModel = { track.albumArtUri },
         modifier = Modifier.size(48.dp),
         loading = {
             Box(

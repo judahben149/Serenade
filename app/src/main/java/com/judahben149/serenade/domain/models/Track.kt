@@ -1,6 +1,7 @@
 package com.judahben149.serenade.domain.models
 
 import android.graphics.Bitmap
+import android.net.Uri
 
 data class Track(
     val id: Long = -1L,
@@ -9,5 +10,6 @@ data class Track(
     val thumbnail: String = "",
     val duration: Int = 0,
     val contentUri: String = "",
-    val albumArt: Bitmap? = null
+    val albumArt: Bitmap? = null,
+    val albumArtUri: String? = null,
 )

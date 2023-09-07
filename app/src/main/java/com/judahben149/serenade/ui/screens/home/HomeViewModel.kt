@@ -1,7 +1,12 @@
 package com.judahben149.serenade.ui.screens.home
 
+import android.app.Application
+import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
+import android.util.Log
+import androidx.core.net.toUri
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.judahben149.serenade.domain.models.Track
@@ -9,22 +14,28 @@ import com.judahben149.serenade.domain.usecase.GetAlbumArtUseCase
 import com.judahben149.serenade.utils.Constants
 import com.judahben149.serenade.utils.MusicContentHelper
 import com.judahben149.serenade.utils.PrefUtils
+import com.judahben149.serenade.utils.TrackContent
 import com.judahben149.serenade.utils.serializeTrackListToJson
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
+import java.io.File
+import java.io.FileOutputStream
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val musicContentHelper: MusicContentHelper,
     private val getAlbumArtUsecase: GetAlbumArtUseCase,
-    private val prefs: PrefUtils
-) : ViewModel() {
+    private val prefs: PrefUtils,
+    application: Application,
+) : AndroidViewModel(application) {
 
     private val _state = MutableStateFlow(HomeUIState())
     val state = _state.asStateFlow()
@@ -45,7 +56,12 @@ class HomeViewModel @Inject constructor(
                 val actualTrackList: ArrayList<Track> = arrayListOf()
 
                 for (track in trackList) {
-//                    val albumArt = getAlbumArt(track.contentUri)
+                    // write a bitmap to external cache directory
+                    val albumArtUri = withContext(Dispatchers.IO) {
+                        getApplication<Application>().saveBitmapToExternalCache(track)
+                    }
+
+                    Timber.e("albumArtUri: $albumArtUri")
 
                     val trackDetails = Track(
                         id = track.id,
@@ -53,7 +69,8 @@ class HomeViewModel @Inject constructor(
                         artistName = track.artist ?: "Empty Artist",
                         duration = track.duration,
                         contentUri = track.contentUri.toString(),
-                        albumArt = null
+                        albumArt = null,
+                        albumArtUri = albumArtUri.getOrNull()?.toString(),
                     )
 
                     actualTrackList.add(trackDetails)
@@ -102,6 +119,24 @@ class HomeViewModel @Inject constructor(
     fun toggleLoading(isLoading: Boolean) {
         _state.update { it.copy(isLoading = isLoading) }
     }
+
+    private suspend fun Context.saveBitmapToExternalCache(track: TrackContent) =
+        kotlin.runCatching {
+            val directory = File(externalCacheDir, "album_art")
+            val file = File(directory, "${track.id}.jpg")
+            if (!directory.exists()) {
+                directory.mkdirs()
+            }
+            // if file exists, return the uri
+            if (file.exists()) {
+                return@runCatching file.toUri()
+            }
+            val out = FileOutputStream(file)
+            getAlbumArt(track.contentUri)?.compress(Bitmap.CompressFormat.JPEG, 10, out)
+            out.flush()
+            out.close()
+            file.toUri()
+        }
 }
 
 data class HomeUIState(
