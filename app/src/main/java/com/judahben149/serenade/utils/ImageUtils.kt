@@ -1,11 +1,13 @@
 package com.judahben149.serenade.utils
 
+import android.content.ContentUris
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.MediaMetadataRetriever
 import android.net.Uri
+import androidx.core.net.toUri
 
 fun getAlbumBitmap(context: Context, url: String?): Bitmap? {
     var bitmap: Bitmap? = null
@@ -45,3 +47,16 @@ fun getAlbumArt(context: Context, uriString: String): Bitmap? {
         null
     }
 }
+
+fun getEmbeddedAlbumArt() {
+
+}
+
+fun Long.toUri(): Uri {
+    return ContentUris.withAppendedId("content://media/external/audio/albumart".toUri(), this)
+}
+
+fun Long.toUri2(): String {
+    return "content://media/external/audio/albumart/${this}"
+}
+
