@@ -1,4 +1,4 @@
-package com.judahben149.serenade.utils
+package com.judahben149.serenade.utils.appUtils
 
 import timber.log.Timber
 
