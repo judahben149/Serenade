@@ -1,7 +1,6 @@
 package com.judahben149.serenade.ui.screens.serenadeHomeScreen
 
 import androidx.compose.animation.Animatable
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
@@ -44,7 +43,7 @@ import com.judahben149.serenade.ui.screens.trackDetail.TrackDetailPlayerSheet
 import com.judahben149.serenade.ui.theme.NavButtonDefaultColor
 import com.judahben149.serenade.utils.resourceUtils.themeColorSwitcher
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SerenadeHomeScreen(viewModel: SerenadeHomeScreenViewModel = hiltViewModel()) {
 
