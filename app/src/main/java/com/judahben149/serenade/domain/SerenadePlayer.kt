@@ -30,7 +30,7 @@ class SerenadePlayer @Inject constructor(
 
         val mediaItem = MediaItem.Builder()
             .setUri(Uri.parse(track.contentUri))
-            .setMediaId(track.id.toString())
+            .setMediaId(track.trackMediaId.toString())
             .setMediaMetadata(metaData)
             .build()
 
@@ -75,14 +75,14 @@ class SerenadePlayer @Inject constructor(
         }
     }
 
-    fun prepareQueue(trackList: List<Track>) {
+    suspend fun prepareQueue(trackList: List<Track>) {
 
-        CoroutineScope(Dispatchers.IO).launch {
+        withContext(Dispatchers.IO) {
             for (track in trackList) {
                 val trackMetadata = constructMediaMetaDataFromTrack(track)
                 val mediaItem = MediaItem.Builder().apply {
                     setUri(track.contentUri)
-                    setMediaId(track.id.toString())
+                    setMediaId(track.trackMediaId.toString())
                     setMediaMetadata(trackMetadata)
                 }.build()
 
@@ -96,6 +96,8 @@ class SerenadePlayer @Inject constructor(
             }
         }
     }
+
+    fun clearQueue() = player.clearMediaItems()
 
     fun playPreviousTrack() {
         player.seekToPreviousMediaItem()
@@ -113,6 +115,11 @@ class SerenadePlayer @Inject constructor(
                 player.currentMediaItem?.localConfiguration?.uri.toString()
             )
         )
+    }
+
+    fun dismissPlayer() {
+        player.clearMediaItems()
+        player.stop()
     }
 
     fun performReleaseActions() {
