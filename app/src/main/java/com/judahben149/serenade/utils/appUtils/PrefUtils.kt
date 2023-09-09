@@ -1,4 +1,4 @@
-package com.judahben149.serenade.utils
+package com.judahben149.serenade.utils.appUtils
 
 import android.content.SharedPreferences
 import javax.inject.Inject
@@ -18,4 +18,8 @@ class PrefUtils @Inject constructor(private val sharedPreferences: SharedPrefere
     fun saveLong(key: String, value: Long) = sharedPreferences.edit().putLong(key, value).apply()
 
     fun fetchLong(key: String): Long = sharedPreferences.getLong(key, 0L)
+
+    fun saveBoolean(key: String, value: Boolean) = sharedPreferences.edit().putBoolean(key, value).apply()
+
+    fun fetchBoolean(key: String, defaultValue: Boolean): Boolean = sharedPreferences.getBoolean(key, defaultValue)
 }

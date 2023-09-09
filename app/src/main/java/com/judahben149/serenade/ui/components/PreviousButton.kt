@@ -10,29 +10,41 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.judahben149.serenade.R
-import com.judahben149.serenade.ui.theme.Purple80
+import com.judahben149.serenade.ui.screens.serenadeHomeScreen.SerenadeHomeScreenState
+import com.judahben149.serenade.ui.theme.AssistButtonDefaultColor
 
 @Composable
-fun PreviousButton(onClick:() -> Unit) {
+fun PreviousButton(state: SerenadeHomeScreenState, onClick: () -> Unit) {
     Button(
         modifier = Modifier.size(48.dp),
         shape = CircleShape,
         onClick = { onClick() },
-        colors = ButtonDefaults.buttonColors(containerColor = Purple80),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = (
+                    state.uiComponentsState
+                        .colorPalette
+                        ?.darkMutedSwatch
+                        ?.rgb?.let { Color(it) } ?: AssistButtonDefaultColor
+                    ).copy(alpha = 0.6f)
+        ),
         contentPadding = PaddingValues(1.dp)
     ) {
         Icon(
+            modifier = Modifier.size(32.dp),
             imageVector = Icons.Rounded.SkipPrevious,
-            contentDescription = stringResource(R.string.previous))
+            contentDescription = stringResource(R.string.previous),
+            tint = Color.LightGray
+        )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun PreviousButtonPreview() {
-    PreviousButton {}
+//    PreviousButton {}
 }

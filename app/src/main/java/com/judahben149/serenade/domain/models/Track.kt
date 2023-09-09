@@ -1,10 +1,10 @@
 package com.judahben149.serenade.domain.models
 
 import android.graphics.Bitmap
-import android.net.Uri
 
 data class Track(
     val id: Long = -1L,
+    val trackMediaId: Long = -1L,
     val trackName: String = "",
     val artistName: String = "",
     val thumbnail: String = "",

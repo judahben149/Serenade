@@ -1,4 +1,4 @@
-package com.judahben149.serenade.utils
+package com.judahben149.serenade.utils.resourceUtils
 
 import java.net.URLDecoder
 import java.net.URLEncoder

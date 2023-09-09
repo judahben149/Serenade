@@ -1,4 +1,4 @@
-package com.judahben149.serenade.utils
+package com.judahben149.serenade.utils.resourceUtils
 
 import android.content.ContentUris
 import android.content.Context
@@ -8,10 +8,8 @@ import android.graphics.BitmapFactory
 import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Build
-import android.os.ParcelFileDescriptor
 import android.provider.MediaStore
 import android.util.Log
-import android.util.Size
 import androidx.annotation.WorkerThread
 import javax.inject.Inject
 

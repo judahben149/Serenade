@@ -3,7 +3,7 @@ package com.judahben149.serenade.di.module
 import android.content.Context
 import android.content.SharedPreferences
 import com.judahben149.serenade.utils.Constants
-import com.judahben149.serenade.utils.PrefUtils
+import com.judahben149.serenade.utils.appUtils.PrefUtils
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

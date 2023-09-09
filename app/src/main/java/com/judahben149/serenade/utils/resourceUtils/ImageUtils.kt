@@ -1,4 +1,4 @@
-package com.judahben149.serenade.utils
+package com.judahben149.serenade.utils.resourceUtils
 
 import android.content.ContentUris
 import android.content.Context
