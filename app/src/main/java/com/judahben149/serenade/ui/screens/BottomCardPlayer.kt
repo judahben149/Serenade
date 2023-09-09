@@ -44,6 +44,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.judahben149.serenade.R
+import com.judahben149.serenade.domain.models.Track
 import com.judahben149.serenade.ui.components.TrackImageComponent
 import com.judahben149.serenade.ui.screens.serenadeHomeScreen.SerenadeHomeScreenState
 import com.judahben149.serenade.ui.screens.serenadeHomeScreen.SerenadeHomeScreenViewModel
@@ -51,7 +52,6 @@ import com.judahben149.serenade.ui.theme.AssistButtonDefaultColor
 import com.judahben149.serenade.ui.theme.Body_Dark
 import com.judahben149.serenade.ui.theme.Body_Light
 import com.judahben149.serenade.ui.theme.MainButtonDefaultColor
-import com.judahben149.serenade.ui.theme.PurpleGrey40
 import com.judahben149.serenade.utils.resourceUtils.themeColorSwitcher
 import kotlinx.coroutines.launch
 
