@@ -3,7 +3,7 @@ package com.judahben149.serenade.service
 import android.content.Intent
 import androidx.media3.session.MediaSession
 import androidx.media3.session.MediaSessionService
-import com.judahben149.serenade.utils.logThis
+import com.judahben149.serenade.utils.appUtils.logThis
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
