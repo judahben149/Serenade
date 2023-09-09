@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.judahben149.serenade.ui.navigation.Navigation
+import com.judahben149.serenade.ui.screens.serenadeHomeScreen.SerenadeHomeScreen
 import com.judahben149.serenade.ui.theme.SerenadeTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,29 +27,30 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             SerenadeTheme {
-                val viewModel = viewModel<MainViewModel>()
-
-                val storageActivityResultLauncher = rememberLauncherForActivityResult(
-                    contract = ActivityResultContracts.RequestPermission(),
-                    onResult = { isGranted ->
-                        viewModel.onPermissionResult(
-                            permission = Manifest.permission.READ_EXTERNAL_STORAGE,
-                            isGranted = isGranted
-                        )
-                    }
-                )
-
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    SideEffect {
-                        storageActivityResultLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
-                    }
-
-                    val navController = rememberNavController()
-                    Navigation(navHostController = navController)
-                }
+//                val viewModel = viewModel<MainViewModel>()
+//
+//                val storageActivityResultLauncher = rememberLauncherForActivityResult(
+//                    contract = ActivityResultContracts.RequestPermission(),
+//                    onResult = { isGranted ->
+//                        viewModel.onPermissionResult(
+//                            permission = Manifest.permission.READ_EXTERNAL_STORAGE,
+//                            isGranted = isGranted
+//                        )
+//                    }
+//                )
+//
+//                Surface(
+//                    modifier = Modifier.fillMaxSize(),
+//                    color = MaterialTheme.colorScheme.background
+//                ) {
+//                    SideEffect {
+//                        storageActivityResultLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+//                    }
+//
+//                    val navController = rememberNavController()
+//                    Navigation(navHostController = navController)
+//                }
+                SerenadeHomeScreen()
             }
         }
     }
