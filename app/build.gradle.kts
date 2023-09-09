@@ -3,6 +3,7 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -97,12 +98,23 @@ dependencies {
     // Landscapist - Animation
     implementation(libs.landscapist.animation)
 
+    // Landscapist - Palette
+    implementation(libs.landscapist.palette)
+
     // Material Icons
     implementation(libs.compose.material.icons)
 
     // Media3 ExoPlayer
     implementation(libs.media3.exoplayer)
     implementation(libs.media3.session)
+
+    // Palette
+    implementation(libs.palette)
+
+    // Room
+    implementation(libs.room)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler.ksp)
 
     // Timber
     implementation(libs.timber)
