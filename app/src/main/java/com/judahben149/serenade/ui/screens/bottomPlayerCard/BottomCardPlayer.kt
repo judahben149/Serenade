@@ -1,4 +1,4 @@
-package com.judahben149.serenade.ui.screens
+package com.judahben149.serenade.ui.screens.bottomPlayerCard
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.LinearEasing
@@ -44,7 +44,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.judahben149.serenade.R
-import com.judahben149.serenade.domain.models.Track
 import com.judahben149.serenade.ui.components.TrackImageComponent
 import com.judahben149.serenade.ui.screens.serenadeHomeScreen.SerenadeHomeScreenState
 import com.judahben149.serenade.ui.screens.serenadeHomeScreen.SerenadeHomeScreenViewModel

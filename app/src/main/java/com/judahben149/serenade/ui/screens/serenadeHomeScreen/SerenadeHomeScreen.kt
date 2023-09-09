@@ -37,7 +37,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.judahben149.serenade.R
 import com.judahben149.serenade.ui.components.TrackListItemComponent
-import com.judahben149.serenade.ui.screens.BottomCardPlayer
+import com.judahben149.serenade.ui.screens.bottomPlayerCard.BottomCardPlayer
 import com.judahben149.serenade.ui.screens.TopAppBarComponent
 import com.judahben149.serenade.ui.screens.trackDetail.TrackDetailPlayerSheet
 import com.judahben149.serenade.ui.theme.NavButtonDefaultColor
