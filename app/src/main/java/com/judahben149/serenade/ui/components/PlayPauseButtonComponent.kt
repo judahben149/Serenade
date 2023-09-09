@@ -3,15 +3,20 @@ package com.judahben149.serenade.ui.components
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.judahben149.serenade.ui.screens.serenadeHomeScreen.SerenadeHomeScreenState
 
 @Composable
-fun PlayPauseButtonComponent(isPlaying: Boolean, onCLick: () -> Unit) {
+fun PlayPauseButtonComponent(
+    state: SerenadeHomeScreenState,
+    isPlaying: Boolean,
+    onCLick: () -> Unit
+) {
 
     Box {
         if (isPlaying) {
-            PauseButton { onCLick() }
+            PauseButton(state) { onCLick() }
         } else {
-            PlayButton { onCLick() }
+            PlayButton(state) { onCLick() }
         }
     }
 }
@@ -19,6 +24,6 @@ fun PlayPauseButtonComponent(isPlaying: Boolean, onCLick: () -> Unit) {
 @Preview(showBackground = true)
 @Composable
 fun PlayPauseButtonComponentPreview() {
-    PlayPauseButtonComponent(true) {}
+//    PlayPauseButtonComponent(true) {}
 }
 
