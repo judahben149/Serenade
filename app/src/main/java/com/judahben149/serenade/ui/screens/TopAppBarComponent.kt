@@ -10,7 +10,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -26,6 +28,8 @@ import com.judahben149.serenade.utils.resourceUtils.themeColorSwitcher
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopAppBarComponent(viewModel: SerenadeHomeScreenViewModel, state: SerenadeHomeScreenState) {
+
+
     LargeTopAppBar(
         colors = TopAppBarDefaults.largeTopAppBarColors(containerColor = Color.Transparent),
         navigationIcon = {
@@ -60,5 +64,29 @@ fun TopAppBarComponent(viewModel: SerenadeHomeScreenViewModel, state: SerenadeHo
                 Icon(imageVector = Icons.Rounded.Search, contentDescription = "Search")
             }
         }
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SerenadeTopAppBar(
+    viewModel: SerenadeHomeScreenViewModel,
+    state: SerenadeHomeScreenState,
+) {
+    TopAppBar(
+        title = {
+            Text(
+                text = "Serenade",
+                color = themeColorSwitcher(
+                    lightThemeColor = Heading_Light,
+                    darkThemeColor = Heading_Dark
+                ),
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.padding(16.dp)
+            )
+        },
+        colors = TopAppBarDefaults.mediumTopAppBarColors(
+            containerColor = MaterialTheme.colorScheme.background
+        )
     )
 }
