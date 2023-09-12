@@ -5,6 +5,7 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 import androidx.media3.common.Player
 import androidx.media3.common.Player.COMMAND_RELEASE
+import androidx.media3.common.Tracks
 import com.judahben149.serenade.domain.models.Track
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,6 +25,16 @@ class SerenadePlayer @Inject constructor(
 
     private val _playerEvent = MutableSharedFlow<PlayerEvent>(replay = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val playerEvent = _playerEvent.asSharedFlow()
+
+    init {
+        CoroutineScope(Dispatchers.IO).launch {
+            player.addListener(object : Player.Listener {
+                override fun onTracksChanged(tracks: Tracks) {
+                    onTrackChanged()
+                }
+            })
+        }
+    }
 
     fun performPlayNewTrackAction(track: Track) {
         val metaData = constructMediaMetaDataFromTrack(track)
