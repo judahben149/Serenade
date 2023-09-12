@@ -30,6 +30,7 @@ val MainButtonDefaultColor = Color(0xFFEFB8C8)
 val AssistButtonDefaultColor = Color(0xFF7D5260)
 val OtherButtonDefaultColor = Color(0xFF625b71)
 val NavButtonDefaultColor = Color(0xFF7D5260)
+val NavContainerDefaultColor = Color(0xFFFFDBCF)
 
 
 // Material Theme
