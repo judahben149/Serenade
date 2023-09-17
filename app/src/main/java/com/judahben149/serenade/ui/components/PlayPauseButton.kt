@@ -16,12 +16,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.judahben149.serenade.R
-import com.judahben149.serenade.ui.screens.serenadeHomeScreen.SerenadeHomeScreenState
+import com.judahben149.serenade.ui.screens.serenadeHomeScreen.HomeUIState
 import com.judahben149.serenade.ui.theme.MainButtonDefaultColor
 
 @Composable
 fun PlayButton(
-    state: SerenadeHomeScreenState,
+    state: HomeUIState,
     onClick: () -> Unit,
 ) {
     Button(
@@ -49,7 +49,7 @@ fun PlayButton(
 
 @Composable
 fun PauseButton(
-    state: SerenadeHomeScreenState,
+    state: HomeUIState,
     onClick: () -> Unit,
 ) {
     Button(

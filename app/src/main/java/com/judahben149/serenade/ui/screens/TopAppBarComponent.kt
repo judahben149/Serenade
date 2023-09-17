@@ -10,7 +10,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -19,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.judahben149.serenade.ui.components.ChipComponent
-import com.judahben149.serenade.ui.screens.serenadeHomeScreen.SerenadeHomeScreenState
+import com.judahben149.serenade.ui.screens.serenadeHomeScreen.HomeUIState
 import com.judahben149.serenade.ui.screens.serenadeHomeScreen.SerenadeHomeScreenViewModel
 import com.judahben149.serenade.ui.theme.Heading_Dark
 import com.judahben149.serenade.ui.theme.Heading_Light
@@ -27,7 +26,7 @@ import com.judahben149.serenade.utils.resourceUtils.themeColorSwitcher
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopAppBarComponent(viewModel: SerenadeHomeScreenViewModel, state: SerenadeHomeScreenState) {
+fun TopAppBarComponent(viewModel: SerenadeHomeScreenViewModel, state: HomeUIState) {
 
 
     LargeTopAppBar(
@@ -71,7 +70,7 @@ fun TopAppBarComponent(viewModel: SerenadeHomeScreenViewModel, state: SerenadeHo
 @Composable
 fun SerenadeTopAppBar(
     viewModel: SerenadeHomeScreenViewModel,
-    state: SerenadeHomeScreenState,
+    state: HomeUIState,
 ) {
     TopAppBar(
         title = {

@@ -3,11 +3,11 @@ package com.judahben149.serenade.ui.components
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.judahben149.serenade.ui.screens.serenadeHomeScreen.SerenadeHomeScreenState
+import com.judahben149.serenade.ui.screens.serenadeHomeScreen.HomeUIState
 
 @Composable
 fun PlayPauseButtonComponent(
-    state: SerenadeHomeScreenState,
+    state: HomeUIState,
     isPlaying: Boolean,
     onCLick: () -> Unit
 ) {

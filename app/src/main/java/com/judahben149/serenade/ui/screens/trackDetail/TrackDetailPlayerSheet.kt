@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.sp
 import com.judahben149.serenade.ui.components.NextButton
 import com.judahben149.serenade.ui.components.PlayPauseButtonComponent
 import com.judahben149.serenade.ui.components.PreviousButton
-import com.judahben149.serenade.ui.screens.serenadeHomeScreen.SerenadeHomeScreenState
+import com.judahben149.serenade.ui.screens.serenadeHomeScreen.HomeUIState
 import com.judahben149.serenade.ui.screens.serenadeHomeScreen.SerenadeHomeScreenViewModel
 import com.judahben149.serenade.ui.theme.AssistButtonDefaultColor
 import com.judahben149.serenade.ui.theme.Body_Dark
@@ -55,7 +55,7 @@ import com.skydoves.landscapist.palette.PalettePlugin
 
 @Composable
 fun TrackDetailPlayerSheet(
-    state: SerenadeHomeScreenState,
+    state: HomeUIState,
     viewModel: SerenadeHomeScreenViewModel,
 ) {
 
