@@ -6,14 +6,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import com.judahben149.serenade.ui.screens.serenadeHomeScreen.SerenadeHomeScreenViewModel
 
 @Composable
-fun HomeScreen() {
-    Box(modifier = Modifier.background(color = Color.Blue))
+fun HomeScreen(viewModel: SerenadeHomeScreenViewModel) {
+    Box(modifier = Modifier.background(color = Color.Black))
 }
 
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen()
+//    HomeScreen()
 }
