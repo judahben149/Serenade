@@ -32,9 +32,10 @@ fun LocalScreen(viewModel: SerenadeHomeScreenViewModel) {
 
     val state by viewModel.state.collectAsState()
 
-    val backgroundOverlayColor =
-        state.uiComponentsState.colorPalette?.darkVibrantSwatch?.rgb?.let { Color(it) }
-            ?: MaterialTheme.colorScheme.background
+//    val backgroundOverlayColor = state.uiComponentsState.colorPalette?.darkVibrantSwatch?.rgb?.let { Color(it) }
+//            ?: MaterialTheme.colorScheme.background
+
+    val backgroundOverlayColor = MaterialTheme.colorScheme.background
     val animatedColor = remember { Animatable(backgroundOverlayColor) }
 
     val tracks = state.trackList
@@ -73,14 +74,6 @@ fun LocalScreen(viewModel: SerenadeHomeScreenViewModel) {
                         viewModel.playTrack(trackId)
                     }
                 }
-            }
-
-            if (state.isTrackLoaded) {
-                BottomCardPlayer(
-                    state = state,
-                    viewModel = viewModel,
-                    sheetState = bottomSheetState
-                )
             }
         }
     }

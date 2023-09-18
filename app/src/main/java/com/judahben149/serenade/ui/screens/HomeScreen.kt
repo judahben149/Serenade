@@ -10,7 +10,10 @@ import com.judahben149.serenade.ui.screens.serenadeHomeScreen.SerenadeHomeScreen
 
 @Composable
 fun HomeScreen(viewModel: SerenadeHomeScreenViewModel) {
-    Box(modifier = Modifier.background(color = Color.Black))
+    Box(
+        modifier = Modifier
+            .background(color = Color.Black)
+    )
 }
 
 @Preview(showBackground = true)
