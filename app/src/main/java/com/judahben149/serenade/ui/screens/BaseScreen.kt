@@ -17,7 +17,7 @@ fun BaseScreen(viewModel: SerenadeHomeScreenViewModel = hiltViewModel()) {
             val navController = rememberNavController()
 
             NavGraph(
-                navHostController = navController,
+                navController = navController,
                 viewModel = viewModel
             )
         }
