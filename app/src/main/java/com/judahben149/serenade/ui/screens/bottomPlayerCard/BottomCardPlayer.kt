@@ -44,8 +44,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.judahben149.serenade.R
-import com.judahben149.serenade.ui.components.TrackImageComponent
-import com.judahben149.serenade.ui.screens.serenadeHomeScreen.SerenadeHomeScreenState
+import com.judahben149.serenade.ui.components.BottomCardImageComponent
+import com.judahben149.serenade.ui.screens.serenadeHomeScreen.HomeUIState
 import com.judahben149.serenade.ui.screens.serenadeHomeScreen.SerenadeHomeScreenViewModel
 import com.judahben149.serenade.ui.theme.AssistButtonDefaultColor
 import com.judahben149.serenade.ui.theme.Body_Dark
@@ -57,24 +57,28 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomCardPlayer(
-    state: SerenadeHomeScreenState,
+    state: HomeUIState,
     viewModel: SerenadeHomeScreenViewModel,
+    modifier: Modifier = Modifier,
     sheetState: SheetState,
+    onCardClick: () -> Unit,
 ) {
     val scope = rememberCoroutineScope()
 
-    Box(modifier = Modifier
-        .clickable {
+    Box(
+        modifier = modifier
+            .clickable {
             scope.launch {
-                sheetState.expand()
+//                sheetState.expand()
+                onCardClick()
             }
-        }
+            }
     ) {
         CardPlayerSongItem(
             state = state,
             viewModel = viewModel,
             onDismissPlayer = { viewModel.dismissPlayer() },
-            onCardClick = { scope.launch { sheetState.expand() } },
+            onCardClick = { scope.launch { onCardClick() } },
             onPreviousClick = { viewModel.playPreviousTrack() },
             onPlayPauseClick = { viewModel.toggleIsPlaying() },
             onNextClick = { viewModel.playNextTrack() },
@@ -84,7 +88,7 @@ fun BottomCardPlayer(
 
 @Composable
 fun CardPlayerSongItem(
-    state: SerenadeHomeScreenState,
+    state: HomeUIState,
     viewModel: SerenadeHomeScreenViewModel,
     onDismissPlayer: () -> Unit,
     onCardClick: () -> Unit,
@@ -152,7 +156,12 @@ fun CardPlayerSongItem(
 
             Spacer(modifier = Modifier.width(12.dp))
 
-            TrackImageComponent(state.currentTrack!!)
+            BottomCardImageComponent(
+                track = state.currentTrack!!,
+                onPaletteExtracted = { palette ->
+                    viewModel.updateColorPalette(palette)
+                }
+            )
 
             Column(
                 modifier = Modifier
