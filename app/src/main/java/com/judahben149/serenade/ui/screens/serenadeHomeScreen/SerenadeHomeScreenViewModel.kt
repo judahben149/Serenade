@@ -13,7 +13,6 @@ import com.judahben149.serenade.domain.usecase.GetAllTracksUseCase
 import com.judahben149.serenade.domain.usecase.QueueManagementUseCase
 import com.judahben149.serenade.domain.usecase.SaveAlbumArtUseCase
 import com.judahben149.serenade.domain.usecase.SaveTracksToDatabaseUseCase
-import com.judahben149.serenade.utils.appUtils.logThis
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,7 +33,7 @@ class SerenadeHomeScreenViewModel @Inject constructor(
     private val sessionManager: SessionManager,
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(SerenadeHomeScreenState())
+    private val _state = MutableStateFlow(HomeUIState())
     val state = _state.asStateFlow()
 
     init {
@@ -200,5 +199,15 @@ class SerenadeHomeScreenViewModel @Inject constructor(
     fun dismissPlayer() {
         serenadePlayer.dismissPlayer()
         _state.update { it.copy(currentTrack = null, isTrackLoaded = false) }
+    }
+
+    fun updateSelectedBottomBarItem(selectedBottomBarItem: SelectedBottomBarItem) {
+        _state.update {
+            it.copy(
+                bottomBarState = _state.value.bottomBarState.copy(
+                    selected = selectedBottomBarItem
+                )
+            )
+        }
     }
 }
