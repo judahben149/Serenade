@@ -24,6 +24,9 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -54,10 +57,11 @@ import com.skydoves.landscapist.components.rememberImageComponent
 import com.skydoves.landscapist.palette.PalettePlugin
 
 @Composable
-fun TrackDetailPlayerSheet(
-    state: HomeUIState,
+fun NowPlayingScreen(
     viewModel: SerenadeHomeScreenViewModel,
 ) {
+
+    val state by viewModel.state.collectAsState()
 
     val assistButtonColor = animateColorAsState(
         targetValue = state.uiComponentsState
@@ -79,6 +83,7 @@ fun TrackDetailPlayerSheet(
         label = "Main button background color"
     )
 
+    
     val cardBackgroundColor = animateColorAsState(
         targetValue = state.uiComponentsState
             .colorPalette
@@ -89,7 +94,6 @@ fun TrackDetailPlayerSheet(
         label = "Bottom Card player background color"
     )
 
-
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -98,11 +102,11 @@ fun TrackDetailPlayerSheet(
             .padding(horizontal = 16.dp)
     ) {
 
-        Spacer(modifier = Modifier.height(48.dp))
+        Spacer(modifier = Modifier.height(64.dp))
 
         Box(
             modifier = Modifier
-                .size(280.dp)
+                .size(320.dp)
                 .background(
                     color = themeColorSwitcher(
                         lightThemeColor = LightGrey,
