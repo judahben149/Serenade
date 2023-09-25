@@ -36,13 +36,6 @@ object BottomNavItems {
             filledIconResource = R.drawable.ic_disk_filled,
             route = BottomNavRoutes.Local.route
         ),
-        BottomNavigationItem(
-            label = "Settings",
-            destinationName = SelectedBottomBarItem.SETTINGS,
-            outlinedIconResource = R.drawable.ic_settings_outlined,
-            filledIconResource = R.drawable.ic_settings_filled,
-            route = BottomNavRoutes.Settings.route
-        ),
     )
 }
 
