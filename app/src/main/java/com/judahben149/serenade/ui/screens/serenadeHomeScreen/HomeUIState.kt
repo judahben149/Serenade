@@ -31,5 +31,4 @@ enum class SelectedBottomBarItem {
     HOME,
     LIBRARY,
     LOCAL,
-    SETTINGS
 }

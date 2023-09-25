@@ -92,10 +92,6 @@ fun SerenadeHome(
                         SelectedBottomBarItem.LOCAL -> {
                             LocalScreen(viewModel)
                         }
-
-                        SelectedBottomBarItem.SETTINGS -> {
-                            SettingsScreen()
-                        }
                     }
                 }
 
@@ -137,10 +133,6 @@ fun HomeBottomBar(viewModel: SerenadeHomeScreenViewModel) {
 
             BottomNavRoutes.Local.route -> {
                 viewModel.updateSelectedBottomBarItem(SelectedBottomBarItem.LOCAL)
-            }
-
-            BottomNavRoutes.Settings.route -> {
-                viewModel.updateSelectedBottomBarItem(SelectedBottomBarItem.SETTINGS)
             }
         }
     }
